@@ -1,5 +1,6 @@
 package vitalyTests;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
@@ -11,6 +12,7 @@ import vitalyPages.StartPage;
 public class FirstTest {
 
         FirefoxDriver driver;
+//        ChromeDriver driver;
         public FirstPage firstPage;
         public StartPage startPage;
 
@@ -18,6 +20,8 @@ public class FirstTest {
         public void setup() {
                 System.setProperty("webdriver.gecko.driver", "resources//geckodriver.exe");
                 driver = new FirefoxDriver();
+//                System.setProperty("webdriver.chrome.driver", "resources//chromedriver.exe");
+//                driver = new ChromeDriver();
                 driver.get("https://www.google.com/intl/ru/gmail/about/#");
                 startPage = PageFactory.initElements(driver, StartPage.class);
                 firstPage = PageFactory.initElements(driver, FirstPage.class);
@@ -37,7 +41,7 @@ public class FirstTest {
       }
 
         @Test
-        public void loginNegativeTest() {
+        public void loginTest() {
 
                 firstPage.WaitCreateForm();
                 firstPage.FillFirstName("");
@@ -47,7 +51,7 @@ public class FirstTest {
                 firstPage.FillPasswordAgain("456hgfyb");
                 firstPage.SelectMonth(12);
                 firstPage.SetBirthMonth();
-                firstPage.FillBirthDay("25");
+                firstPage.driver.findElement(By.id("BirthDay")).sendKeys("25");
                 firstPage.FillBirthYear("1996");
                 firstPage.SetGender();
                 firstPage.ClickSubmitButton();
